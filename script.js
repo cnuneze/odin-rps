@@ -71,7 +71,7 @@ function playRound(humanChoice, computerChoice) {
     }
 
     if (humanWin) {
-        humanWin++;
+        humanScore++;
     } else {
         computerScore++;
     }
@@ -83,7 +83,34 @@ function playRound(humanChoice, computerChoice) {
     console.log(message);
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+function playGame() {
+    for (let i = 1; i <= 5; i++) {
+        console.log(`Round ${i}:`);
+        let humanSelection = getHumanChoice();
+        let computerSelection = getComputerChoice();
+        
+        playRound(humanSelection, computerSelection);
+        displayScores();
+    }
 
-playRound(humanSelection, computerSelection);
+    displayFinalResult();
+}
+
+function displayFinalResult() {
+    if (humanScore === computerScore) {
+        console.log(`You draw ${humanScore} - ${computerScore}`);
+    } else if (humanScore > computerScore) {
+        console.log(`You Win ${humanScore} - ${computerScore}`);
+    } else {
+        console.log(`You Loose ${humanScore} - ${computerScore}`);
+    }
+}
+
+function displayScores() {
+    console.log(`Scoreborad:
+    Human: ${humanScore}
+    Computer: ${computerScore}`
+    );
+}
+
+playGame()

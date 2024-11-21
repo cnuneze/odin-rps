@@ -113,4 +113,4 @@ function displayScores() {
     );
 }
 
-playGame()
+//playGame()

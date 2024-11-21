@@ -5,8 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Papper Scissors</title>
 
-    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
+    <h1>Rock, Papper or Scisors</h1>
+    <div class="container flex">
+        <div class="display">
+            <h2>Round <span id="txt_roundNumber">1</span></h2>
+            <div class="scoreboard flex">
+                <p>COM: 0</p>
+                <p>YOU: 0</p>
+            </div>
+            <h3>Make your choice:</h3>
+            <div class="display-info">
+                <p><b>Computer</b>:  <span id="txt_computerChoice">?</span></p>
+                <p><b>Human</b>:  <span id="txt_humanChoice">?</span></p>
+                <p id="txt_rpsResult"></p>
+            </div>
+            <div class="flex option-panel">
+                <button>Rock</button>
+                <button>Papper</button>
+                <button>Scissors</button>
+            </div>
+            
+            <p></p>
+        </div>
+    </div>
 </body>
 </html>

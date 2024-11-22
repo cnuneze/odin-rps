@@ -1,27 +1,26 @@
 let humanScore = 0;
 let computerScore = 0;
 
+let panel = document.querySelector('.option-panel');
+const options = [
+    'rock',
+    'papper',
+    'scissors'
+];
+
+panel.addEventListener('click', (event) => {
+    let humanOption = options.findIndex(option => option === event.target.id);
+
+    if (humanOption >= 0) {
+        let humanChoice = getOption(humanOption);
+        playRound(humanChoice);
+    }
+})
+
 function getComputerChoice() {
     let randomNumber = Math.floor(Math.random() * 100) % 3;
 
     return getOption(randomNumber);
-}
-
-function getHumanChoice() {
-    console.log(`Select your choice:
-    1. Rock
-    2. Papper
-    3. Scissors
-    `);
-    
-    let humanChoice = parseInt(prompt("Input the number of your choice:"));
-
-    if (isNaN(humanChoice) || humanChoice > 4 || humanChoice < 0) {
-        console.log("The selected option is invalid.")
-        return null;
-    }
-
-    return getOption(humanChoice - 1);
 }
 
 function getOption(option) {
@@ -40,34 +39,16 @@ function getOption(option) {
     }
 }
 
-function playRound(humanChoice, computerChoice) {
+function playRound(humanChoice) {
 
-    if (humanChoice === null) {
-        return;
-    }
+    let computerChoice = getComputerChoice();
+    let drawGame = humanChoice === computerChoice;
+    let humanWin = isHumanWinner(humanChoice, computerChoice);
+    let resultMessage = '';
 
-    let humanWin = false
-
-    if (humanChoice === computerChoice) {
-        console.log("Draw! No winner.");
-        return;
-    }
-
-    switch (humanChoice) {
-        case "Rock":
-            humanWin = (computerChoice === "Scissors");
-            break;
-
-        case "Papper":
-            humanWin = (computerChoice === "Rock");
-            break;
-        
-        case "Scissors":
-            humanWin = (computerChoice === "Papper");
-            break;
-    
-        default:
-            break;
+    if (drawGame) {
+        resultMessage ="Draw! No winner.";
+        return updateDisplay(resultMessage); 
     }
 
     if (humanWin) {
@@ -76,11 +57,37 @@ function playRound(humanChoice, computerChoice) {
         computerScore++;
     }
 
-    let message = (humanWin) ?
+    resultMessage = (humanWin) ?
         `${humanChoice} beats ${computerChoice}, You Win.` :
-        `${computerChoice} beats ${humanChoice}, You Loose.`
+        `${computerChoice} beats ${humanChoice}, You Loose.`;
+    
+    return updateDisplay(resultMessage); 
+}
 
-    console.log(message);
+function isHumanWinner(humanChoice, computerChoice) {
+    switch (humanChoice) {
+        case "Rock":
+            return (computerChoice === "Scissors");
+
+        case "Papper":
+            return (computerChoice === "Rock");
+
+        case "Scissors":
+            return (computerChoice === "Papper");
+    
+        default:
+            return false
+    }
+}
+
+function updateDisplay(message = '') {
+    let comScore = document.querySelector('#txt_comScore');
+    let humScore = document.querySelector('#txt_youScore');
+    let result = document.querySelector('#txt_rpsResult');
+
+    comScore.textContent = computerScore;
+    humScore.textContent = humanScore;
+    result.textContent = message;
 }
 
 function playGame() {
@@ -105,12 +112,3 @@ function displayFinalResult() {
         console.log(`You Loose ${humanScore} - ${computerScore}`);
     }
 }
-
-function displayScores() {
-    console.log(`Scoreborad:
-    Human: ${humanScore}
-    Computer: ${computerScore}`
-    );
-}
-
-//playGame()

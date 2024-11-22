@@ -14,8 +14,8 @@
         <div class="display">
             <h2>Round <span id="txt_roundNumber">1</span></h2>
             <div class="scoreboard flex">
-                <p>COM: 0</p>
-                <p>YOU: 0</p>
+                <p>COM: <span id="txt_comScore">0</span></p>
+                <p>YOU: <span id="txt_youScore">0</span></p>
             </div>
             <h3>Make your choice:</h3>
             <div class="display-info">
@@ -24,12 +24,12 @@
                 <p id="txt_rpsResult"></p>
             </div>
             <div class="flex option-panel">
-                <button>Rock</button>
-                <button>Papper</button>
-                <button>Scissors</button>
+                <button id="rock" value="Rock">Rock</button>
+                <button id="papper" value="Papper">Papper</button>
+                <button id="scissors" value="Scissors">Scissors</button>
             </div>
             
-            <p></p>
+            <p class="txt_gameResult"></p>
         </div>
     </div>
 </body>

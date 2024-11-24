@@ -1,12 +1,17 @@
 let humanScore = 0;
 let computerScore = 0;
+let roundNumber = 1;
 
-let panel = document.querySelector('.option-panel');
 const options = [
     'rock',
     'papper',
     'scissors'
 ];
+
+let startButton = document.querySelector('#start');
+let panel = document.querySelector('.option-panel');
+
+startButton.addEventListener('click', () => startGame());
 
 panel.addEventListener('click', (event) => {
     let humanOption = options.findIndex(option => option === event.target.id);
@@ -16,6 +21,28 @@ panel.addEventListener('click', (event) => {
         playRound(humanChoice);
     }
 })
+
+function startGame() {
+    let initScreen = document.querySelector('.init');
+    let gameScreen = document.querySelector('.game');
+
+    initScreen.classList.toggle('hidden');
+    gameScreen.classList.toggle('hidden');
+
+    updateDisplayInfo();
+}
+
+function updateDisplayInfo(message = '') {
+    let rounds = document.querySelector('#txt_roundNumber');
+    let comScore = document.querySelector('#txt_comScore');
+    let humScore = document.querySelector('#txt_youScore');
+    let result = document.querySelector('#txt_rpsResult');
+
+    rounds.textContent = roundNumber;
+    comScore.textContent = computerScore;
+    humScore.textContent = humanScore;
+    result.textContent = message;
+}
 
 function getComputerChoice() {
     let randomNumber = Math.floor(Math.random() * 100) % 3;
@@ -48,7 +75,7 @@ function playRound(humanChoice) {
 
     if (drawGame) {
         resultMessage ="Draw! No winner.";
-        return updateDisplay(resultMessage); 
+        return updateDisplayInfo(resultMessage); 
     }
 
     if (humanWin) {
@@ -61,7 +88,7 @@ function playRound(humanChoice) {
         `${humanChoice} beats ${computerChoice}, You Win.` :
         `${computerChoice} beats ${humanChoice}, You Loose.`;
     
-    return updateDisplay(resultMessage); 
+    return updateDisplayInfo(resultMessage); 
 }
 
 function isHumanWinner(humanChoice, computerChoice) {
@@ -78,16 +105,6 @@ function isHumanWinner(humanChoice, computerChoice) {
         default:
             return false
     }
-}
-
-function updateDisplay(message = '') {
-    let comScore = document.querySelector('#txt_comScore');
-    let humScore = document.querySelector('#txt_youScore');
-    let result = document.querySelector('#txt_rpsResult');
-
-    comScore.textContent = computerScore;
-    humScore.textContent = humanScore;
-    result.textContent = message;
 }
 
 function playGame() {

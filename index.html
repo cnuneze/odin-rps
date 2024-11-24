@@ -12,24 +12,30 @@
     <h1>Rock, Papper or Scisors</h1>
     <div class="container flex">
         <div class="display">
-            <h2>Round <span id="txt_roundNumber">1</span></h2>
-            <div class="scoreboard flex">
-                <p>COM: <span id="txt_comScore">0</span></p>
-                <p>YOU: <span id="txt_youScore">0</span></p>
+            <div class="game hidden">
+                <h2>Round <span id="txt_roundNumber"></span></h2>
+                <div class="scoreboard flex">
+                    <p>COM: <span id="txt_comScore"></span></p>
+                    <p>YOU: <span id="txt_youScore"></span></p>
+                </div>
+                <h3>Make your choice:</h3>
+                <div class="display-info">
+                    <p><b>Computer</b>:  <span id="txt_computerChoice">?</span></p>
+                    <p><b>Human</b>:  <span id="txt_humanChoice">?</span></p>
+                    <p id="txt_rpsResult"></p>
+                </div>
+                <div class="flex option-panel">
+                    <button id="rock" value="Rock">Rock</button>
+                    <button id="papper" value="Papper">Papper</button>
+                    <button id="scissors" value="Scissors">Scissors</button>
+                </div>
+                
+                <p class="txt_gameResult"></p>
             </div>
-            <h3>Make your choice:</h3>
-            <div class="display-info">
-                <p><b>Computer</b>:  <span id="txt_computerChoice">?</span></p>
-                <p><b>Human</b>:  <span id="txt_humanChoice">?</span></p>
-                <p id="txt_rpsResult"></p>
+
+            <div class="init flex">
+                <button id="start">Start Game</button>
             </div>
-            <div class="flex option-panel">
-                <button id="rock" value="Rock">Rock</button>
-                <button id="papper" value="Papper">Papper</button>
-                <button id="scissors" value="Scissors">Scissors</button>
-            </div>
-            
-            <p class="txt_gameResult"></p>
         </div>
     </div>
 </body>

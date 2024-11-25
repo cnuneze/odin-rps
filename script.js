@@ -93,8 +93,8 @@ function playRound(humanChoice) {
 
     if (drawGame) {
         resultMessage ="Draw! No winner.";
-        endRound();
-        return updateDisplayInfo(resultMessage); 
+        updateDisplayInfo(resultMessage); 
+        return endRound();
     }
 
     if (isHumanWinner(humanChoice, computerChoice)) {
@@ -104,14 +104,32 @@ function playRound(humanChoice) {
         computerScore++;
         resultMessage = `${computerChoice} beats ${humanChoice}, You Loose.`;
     }
+    updateDisplayInfo(resultMessage);
 
+
+    let isGameFinished = (computerScore >= 5 || humanScore >=5);
+
+    if (isGameFinished) {
+        return endGame();
+    }
+    
     endRound();
-    updateDisplayInfo(resultMessage); 
 }
 
 function endRound() {
     toogleElementVisibility('.option-panel');
     toogleElementVisibility('.next-panel');
+}
+
+function endGame(){
+    toogleElementVisibility('.option-panel');
+    humanWinGame = humanScore > computerScore;
+    let message = humanWinGame ?
+        `You Win ${humanScore} - ${computerScore}` :
+        `You Loose ${humanScore} - ${computerScore}`;
+
+    let finalMessage = document.querySelector('.txt_gameResult');
+    finalMessage.textContent = message;
 }
 
 function toogleElementVisibility(selector) {

@@ -67,3 +67,7 @@ button {
 .next-panel {
     justify-content: center;
 }
+
+.txt_gameResult {
+    padding-top: 24px;
+}

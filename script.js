@@ -9,9 +9,17 @@ const options = [
 ];
 
 let startButton = document.querySelector('#start');
+let nextRoundButton = document.querySelector('#btn_nextRound');
 let panel = document.querySelector('.option-panel');
 
 startButton.addEventListener('click', () => startGame());
+
+nextRoundButton.addEventListener('click', () => {
+    roundNumber++;
+    updateDisplayInfo();
+    toogleElementVisibility('.option-panel');
+    toogleElementVisibility('.next-panel');
+})
 
 panel.addEventListener('click', (event) => {
     let humanOption = options.findIndex(option => option === event.target.id);
@@ -20,7 +28,7 @@ panel.addEventListener('click', (event) => {
         let humanChoice = getOption(humanOption);
         playRound(humanChoice);
     }
-})
+});
 
 function startGame() {
     let initScreen = document.querySelector('.init');
@@ -70,25 +78,34 @@ function playRound(humanChoice) {
 
     let computerChoice = getComputerChoice();
     let drawGame = humanChoice === computerChoice;
-    let humanWin = isHumanWinner(humanChoice, computerChoice);
     let resultMessage = '';
 
     if (drawGame) {
         resultMessage ="Draw! No winner.";
+        endRound();
         return updateDisplayInfo(resultMessage); 
     }
 
-    if (humanWin) {
+    if (isHumanWinner(humanChoice, computerChoice)) {
         humanScore++;
+        resultMessage = `${humanChoice} beats ${computerChoice}, You Win.`;
     } else {
         computerScore++;
+        resultMessage = `${computerChoice} beats ${humanChoice}, You Loose.`;
     }
 
-    resultMessage = (humanWin) ?
-        `${humanChoice} beats ${computerChoice}, You Win.` :
-        `${computerChoice} beats ${humanChoice}, You Loose.`;
-    
-    return updateDisplayInfo(resultMessage); 
+    endRound();
+    updateDisplayInfo(resultMessage); 
+}
+
+function endRound() {
+    toogleElementVisibility('.option-panel');
+    toogleElementVisibility('.next-panel');
+}
+
+function toogleElementVisibility(selector) {
+    let element = document.querySelector(selector);
+    element.classList.toggle('hidden');
 }
 
 function isHumanWinner(humanChoice, computerChoice) {

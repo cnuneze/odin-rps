@@ -12,7 +12,10 @@ let startButton = document.querySelector('#start');
 let nextRoundButton = document.querySelector('#btn_nextRound');
 let panel = document.querySelector('.option-panel');
 
-startButton.addEventListener('click', () => startGame());
+startButton.addEventListener('click', () => {
+    toogleElementVisibility('.init');
+    toogleElementVisibility('.game');
+});
 
 nextRoundButton.addEventListener('click', () => {
     roundNumber++;
@@ -30,16 +33,6 @@ panel.addEventListener('click', (event) => {
         playRound(humanChoice);
     }
 });
-
-function startGame() {
-    let initScreen = document.querySelector('.init');
-    let gameScreen = document.querySelector('.game');
-
-    initScreen.classList.toggle('hidden');
-    gameScreen.classList.toggle('hidden');
-
-    updateDisplayInfo();
-}
 
 function updateDisplayInfo(message = '') {
     let rounds = document.querySelector('#txt_roundNumber');
@@ -106,9 +99,7 @@ function playRound(humanChoice) {
     }
     updateDisplayInfo(resultMessage);
 
-
     let isGameFinished = (computerScore >= 5 || humanScore >=5);
-
     if (isGameFinished) {
         return endGame();
     }
@@ -124,6 +115,7 @@ function endRound() {
 function endGame(){
     toogleElementVisibility('.option-panel');
     humanWinGame = humanScore > computerScore;
+    
     let message = humanWinGame ?
         `You Win ${humanScore} - ${computerScore}` :
         `You Loose ${humanScore} - ${computerScore}`;
@@ -150,28 +142,5 @@ function isHumanWinner(humanChoice, computerChoice) {
     
         default:
             return false
-    }
-}
-
-function playGame() {
-    for (let i = 1; i <= 5; i++) {
-        console.log(`Round ${i}:`);
-        let humanSelection = getHumanChoice();
-        let computerSelection = getComputerChoice();
-        
-        playRound(humanSelection, computerSelection);
-        displayScores();
-    }
-
-    displayFinalResult();
-}
-
-function displayFinalResult() {
-    if (humanScore === computerScore) {
-        console.log(`You draw ${humanScore} - ${computerScore}`);
-    } else if (humanScore > computerScore) {
-        console.log(`You Win ${humanScore} - ${computerScore}`);
-    } else {
-        console.log(`You Loose ${humanScore} - ${computerScore}`);
     }
 }

@@ -17,6 +17,7 @@ startButton.addEventListener('click', () => startGame());
 nextRoundButton.addEventListener('click', () => {
     roundNumber++;
     updateDisplayInfo();
+    updateChoices();
     toogleElementVisibility('.option-panel');
     toogleElementVisibility('.next-panel');
 })
@@ -58,6 +59,14 @@ function getComputerChoice() {
     return getOption(randomNumber);
 }
 
+function updateChoices(humanChoice = '?', computerChoice = '?') {
+    let humanChoiceText = document.querySelector('#txt_humanChoice');
+    let computerChoiceText = document.querySelector('#txt_computerChoice');
+
+    humanChoiceText.textContent = humanChoice;
+    computerChoiceText.textContent = computerChoice;
+}
+
 function getOption(option) {
     switch (option) {
         case 0:
@@ -79,6 +88,8 @@ function playRound(humanChoice) {
     let computerChoice = getComputerChoice();
     let drawGame = humanChoice === computerChoice;
     let resultMessage = '';
+
+    updateChoices(humanChoice, computerChoice);
 
     if (drawGame) {
         resultMessage ="Draw! No winner.";
